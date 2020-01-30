@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="127.0.0.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="127.0.0.1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="127.0.0.1">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="dodajKsiazkeRequest">
+    <wsdl:part name="Nazwa" type="xsd:string" />
+    <wsdl:part name="Autor" type="xsd:string" />
+    <wsdl:part name="Kategoria" type="xsd:string" />
+    <wsdl:part name="Lektura" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="dodajKsiazkeResponse">
+    <wsdl:part name="return" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:portType name="mySOAPPortType">
+    <wsdl:operation name="dodajKsiazke">
+      <documentation>To jest nasza testowa metoda zwracajÄca czas na serwerze</documentation>
+      <wsdl:input message="tns:dodajKsiazkeRequest" />
+      <wsdl:output message="tns:dodajKsiazkeResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="mySOAPBinding" type="tns:mySOAPPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="dodajKsiazke">
+      <soap:operation soapAction="http://localhost/soap/index.php/dodajKsiazke" style="rpc" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="127.0.0.1" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="127.0.0.1" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="mySOAP">
+    <wsdl:port name="mySOAPPort" binding="tns:mySOAPBinding">
+      <soap:address location="http://localhost/soap/index.php" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
